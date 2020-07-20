@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Condents{
   String name;
   String key;
+  bool isSelected=false;
   Condents(this.name);
   Condents.fromSnapshot(DocumentSnapshot snapshot)
       :name=snapshot.data['name'],
@@ -37,6 +38,10 @@ class Dbref{
 
   CollectionReference getdetailref(String val){
     return(Firestore.instance.collection('$val'));
+  }
+
+  CollectionReference getdetailref2(String year,String department){
+    return(Firestore.instance.collection('class/$department/$year'));
   }
 
 }

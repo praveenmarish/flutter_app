@@ -17,6 +17,7 @@ class _AddclassState extends State<Addclass> {
   List<Condents> classes=[];
   TextEditingController eCtrl = new TextEditingController();
   String name;
+  Dbref obj=new Dbref();
 
   @override
   void initState() {
@@ -31,13 +32,13 @@ class _AddclassState extends State<Addclass> {
     var dep=widget.dep;
     CollectionReference getref;
     if(yer!=null&&dep!=null){
-     getref=Firestore.instance.collection('cl');
+     getref=obj.getdetailref2(yer, dep);
     }
     else if(yer==null&&dep!=null){
-      getref=Firestore.instance.collection('cl');
+      getref=obj.getdetailref(dep);
     }
     else if(dep==null&&yer!=null){
-      getref=Firestore.instance.collection('cl');
+      getref=obj.getdetailref(yer);
     }
     getref.snapshots().listen((event) {
       setState(() {
@@ -59,13 +60,13 @@ class _AddclassState extends State<Addclass> {
     String dep = widget.dep;
     CollectionReference addref;
     if(yer!=null&&dep!=null){
-      addref=Firestore.instance.collection('cl');
+      addref=obj.getdetailref2(yer, dep);
     }
     else if(yer==null&&dep!=null){
-      addref=Firestore.instance.collection('cl');
+      addref=obj.getdetailref(dep);
     }
     else if(dep==null&&yer!=null){
-      addref=Firestore.instance.collection('cl');
+      addref=obj.getdetailref(yer);
     }
     addref.add(
         {

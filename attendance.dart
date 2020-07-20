@@ -5,7 +5,8 @@ import 'dbref.dart';
 // ignore: must_be_immutable
 class Attendance extends StatefulWidget {
   String yer,dep;
-  Attendance(this.yer,this.dep);
+  bool isdelete;
+  Attendance(this.yer,this.dep,this.isdelete);
 
   @override
   _AttendanceState createState() => _AttendanceState(yer,dep);
@@ -13,7 +14,6 @@ class Attendance extends StatefulWidget {
 
 class _AttendanceState extends State<Attendance> {
    String cls,yer,dep;
-   bool isdelete;
   _AttendanceState(this.yer,this.dep);
   List<Condents> classes=List();
   List<Item> item=List();
@@ -23,7 +23,7 @@ class _AttendanceState extends State<Attendance> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    CollectionReference clsref=obj.getdetailref('class');
+    CollectionReference clsref=obj.getdetailref2(yer,dep);
     clsref.snapshots().listen((event) {
       setState(() {
         for (int i=0; i<event.documents.length;i++){
@@ -78,7 +78,7 @@ class _AttendanceState extends State<Attendance> {
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text('Attendance'),
+        title: Text('Selections'),
       ),
       body: new SingleChildScrollView(
           child: Column(
@@ -127,7 +127,7 @@ class _AttendanceState extends State<Attendance> {
                 child: Text('Submit'),
                 color: Colors.lightBlueAccent,
                 onPressed: (){
-                  if(isdelete){
+                  if(widget.isdelete){
                     _delete(cls);
                   }
                   else{

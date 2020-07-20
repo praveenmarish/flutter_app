@@ -4,11 +4,12 @@ import 'attendance.dart';
 import 'addstd.dart';
 import 'dbref.dart';
 import 'addclass.dart';
+import 'deleteclass.dart';
 
 // ignore: must_be_immutable
 class Details extends StatefulWidget {
-  bool isattendance,isaddstudent,isaddclass;
-  Details(this.isattendance,this.isaddstudent,this.isaddclass);
+  bool isattendance,isaddstudent,isaddclass,isdeletestudent,isdeleteclass;
+  Details(this.isattendance,this.isaddstudent,this.isaddclass,this.isdeletestudent,this.isdeleteclass);
   @override
   _DetailsState createState() => _DetailsState();
 }
@@ -51,7 +52,7 @@ class _DetailsState extends State<Details> {
       ),
       body: Center(
         child:Container(
-          color: Colors.blue,
+          color: Colors.black12,
           height: 200,
           child: Column(
            children: <Widget>[
@@ -88,21 +89,29 @@ class _DetailsState extends State<Details> {
               color: Colors.black,
               textColor: Colors.white,
               child: Text(
-                'Attendance',
+                'Enter',
                 style: TextStyle(fontSize: 20.0),
               ),
               onPressed: (){
                 if(widget.isattendance){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Attendance(yer,dep)));
+                      Attendance(yer,dep,false)));
                 }
                 else if(widget.isaddstudent){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Addstudent(cls,yer,dep)));
+                      Addstudent(yer,dep)));
                 }
                 else if(widget.isaddclass){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
                       Addclass(yer,dep)));
+                }
+                else if(widget.isdeletestudent){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                      Attendance(yer,dep,true)));
+                }
+                else if(widget.isdeleteclass){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                      Deleteclass(yer,dep)));
                 }
               },
             )

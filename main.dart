@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'details.dart';
 import 'addclass.dart';
-import 'test.dart';
 import 'deleteclass.dart';
 
 
@@ -43,7 +42,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: GridView.count(
-          crossAxisCount: 2,
+          padding:EdgeInsets.all(7),
+          crossAxisCount: 3,
+          crossAxisSpacing: 7,
+          mainAxisSpacing: 7,
           children: <Widget>[
             FlatButton(
               color: Colors.black,
@@ -54,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                Details(false,false,true)));
+                Details(false,false,true,false,false)));
               },
             ),
 
@@ -67,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                Details(false,true,false)));
+                Details(false,true,false,false,false)));
               },
             ),
 
@@ -81,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: (){
                 setState(() {
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Details(true,false,false)));
+                      Details(true,false,false,false,false)));
                 });
               },
             ),
@@ -121,11 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.black,
               textColor: Colors.white,
               child: Text(
-                'Add',
+                'Delete students',
                 style: TextStyle(fontSize: 20.0),
               ),
               onPressed: (){
-                Dialogshow().shower(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                Details(false,false,false,true,false)));
               },
             ),
 
@@ -133,12 +136,38 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.black,
               textColor: Colors.white,
               child: Text(
-                'delete',
+                'Delete class',
                 style: TextStyle(fontSize: 20.0),
               ),
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                    Deleteclass()));
+                    Details(false,false,false,false,true)));
+              },
+            ),
+
+            FlatButton(
+              color: Colors.black,
+              textColor: Colors.white,
+              child: Text(
+                'Delete department',
+                style: TextStyle(fontSize: 20.0),
+              ),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                    Deleteclass(null,'department')));
+              },
+            ),
+
+            FlatButton(
+              color: Colors.black,
+              textColor: Colors.white,
+              child: Text(
+                'Delete year',
+                style: TextStyle(fontSize: 20.0),
+              ),
+              onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                    Deleteclass('year',null)));
               },
             ),
 

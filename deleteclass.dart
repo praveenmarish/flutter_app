@@ -4,22 +4,42 @@ import 'package:flutter/material.dart';
 import 'dbref.dart';
 
 class Deleteclass extends StatefulWidget {
+  String department,year;
+  Deleteclass(this.year,this.department);
   @override
-  _DeleteclassState createState() => _DeleteclassState();
+  _DeleteclassState createState() => _DeleteclassState(year,department);
 }
 
 class _DeleteclassState extends State<Deleteclass> {
 
   String cls,yer,dep;
+  _DeleteclassState(this.yer,this.dep);
+
+
   List<Condents> classes=List();
-  List<Item> item=List();
+  CollectionReference clsref;
   Dbref obj=new Dbref();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    CollectionReference clsref=Firestore.instance.collection('cl');
+    if(yer!=null&&dep!=null){
+      setState(() {
+        clsref=obj.getdetailref2(yer, dep);
+      });
+    }
+    else if(yer==null&&dep!=null){
+      setState(() {
+        clsref=obj.getdetailref(dep);
+      });
+    }
+    else if(yer!=null&&dep==null){
+      setState(() {
+        clsref=obj.getdetailref(yer);
+      });
+    }
+
     clsref.snapshots().listen((event) {
       setState(() {
         for (int i=0; i<event.documents.length;i++){
@@ -32,27 +52,14 @@ class _DeleteclassState extends State<Deleteclass> {
 
   void clearDatas(){
     setState(() {
-      item.clear();
-    });
-  }
-
-  void getstudent(String cls){
-    clearDatas();
-    CollectionReference ref=Firestore.instance.collection('collage/student/cse/2020/l1');
-    ref.snapshots().listen((event) {
-      setState(() {
-        for (int i=0; i<event.documents.length;i++){
-          item.add(Item.fromSnapshot(event.documents[i]));
-        }
-      });
+      classes.clear();
     });
   }
 
   void _delete(String cls){
-    CollectionReference ref1=Firestore.instance.collection('collage/student/cse/2020/l1');
-    for (int i=0;i<item.length;i++){
-      if (item[i].isSelected){
-        ref1.document(item[i].key).delete();
+    for (int i=0;i<classes.length;i++){
+      if (classes[i].isSelected){
+        clsref.document(classes[i].key).delete();
       }
     }
     clearDatas();
@@ -69,41 +76,26 @@ class _DeleteclassState extends State<Deleteclass> {
       body: new SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            new DropdownButton(
-              hint: Text('select class'),
-              onChanged: (name){
-                setState(() {
-                  cls=name;
-                  getstudent(cls);
-                });
-              },
-              value: cls,
-              items: classes.map((e) => DropdownMenuItem(
-                child: Text(e.name),
-                value: e.name,
-              )).toList(),
-            ),
 
             new ListView.builder(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 padding: EdgeInsets.all(10),
-                itemCount: item.length,
+                itemCount: classes.length,
                 itemBuilder: (context,int index)=>Container(
-                    color: item[index].isSelected
+                    color: classes[index].isSelected
                         ?Colors.lightBlueAccent:Colors.white,
                     child: ListTile(
-                      title: new Text(item[index].name),
-                      subtitle: Text(item[index].age.toString()),
+                      title: new Text(classes[index].name),
                       onTap: (){
                         setState(() {
-                          item[index].isSelected=false;
+                          classes[index].isSelected=false;
                         });
                       },
                       onLongPress: (){
                         setState(() {
-                          item[index].isSelected=true;
+                          classes[index].isSelected=true;
                         });
                       },
                     )
