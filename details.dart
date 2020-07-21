@@ -52,7 +52,7 @@ class _DetailsState extends State<Details> {
       ),
       body: Center(
         child:Container(
-          color: Colors.black12,
+          color: Colors.lightBlueAccent,
           height: 200,
           child: Column(
            children: <Widget>[

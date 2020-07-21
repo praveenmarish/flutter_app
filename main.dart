@@ -1,7 +1,5 @@
+import 'package:attandance/dbref.dart';
 import 'package:flutter/material.dart';
-import 'details.dart';
-import 'addclass.dart';
-import 'deleteclass.dart';
 
 
 void main() {
@@ -41,137 +39,42 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: GridView.count(
-          padding:EdgeInsets.all(7),
-          crossAxisCount: 3,
-          crossAxisSpacing: 7,
-          mainAxisSpacing: 7,
-          children: <Widget>[
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Add class',
-                style: TextStyle(fontSize: 20.0),
+
+        ),
+      drawer: Container(
+        width: 210,
+        child: Drawer(
+          child: ListView(
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(colors: <Color>[
+                    Colors.lightBlue,
+                    Colors.lightBlueAccent
+                  ])
+                ),
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                     children: <Widget>[
+                       Text('Header',style: TextStyle(fontSize: 20),),
+                     ],
+                  ),
+                ),
               ),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                Details(false,false,true,false,false)));
-              },
-            ),
 
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Add student',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                Details(false,true,false,false,false)));
-              },
-            ),
+              Customview('Add class'),
+              Customview('Add student'),
+              Customview('Attendance'),
+              Customview('Add year'),
+              Customview('Add dep'),
+              Customview('Delete students'),
+              Customview('Delete class'),
+              Customview('Delete department'),
+              Customview('Delete year'),
 
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Attendance',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Details(true,false,false,false,false)));
-                });
-              },
-            ),
-
-
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Add year',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Addclass('year',null)));
-                });
-              },
-            ),
-
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Add dep',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Addclass(null,'department')));
-                });
-              },
-            ),
-
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Delete students',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                Details(false,false,false,true,false)));
-              },
-            ),
-
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Delete class',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                    Details(false,false,false,false,true)));
-              },
-            ),
-
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Delete department',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                    Deleteclass(null,'department')));
-              },
-            ),
-
-            FlatButton(
-              color: Colors.black,
-              textColor: Colors.white,
-              child: Text(
-                'Delete year',
-                style: TextStyle(fontSize: 20.0),
-              ),
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                    Deleteclass('year',null)));
-              },
-            ),
-
-          ],
+            ],
+          ),
         ),
       ),
     );

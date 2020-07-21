@@ -48,7 +48,8 @@ class _AddstudentState extends State<Addstudent> {
       ),
       body: Center(
         child: Container(
-          height: 200,
+          height: 300,
+          width: 200,
           child: Column(
             children: <Widget>[
 
@@ -89,8 +90,10 @@ class _AddstudentState extends State<Addstudent> {
               new FlatButton(
                 child: Text('enter'),
                 onPressed: (){
-                  save(name,age,cls);
-                  eCtrl.clear();
+                  if(name!=null&&age!=null&&cls!=null){
+                    save(name,age,cls);
+                    eCtrl.clear();
+                  }
                 },
               ),
             ],
