@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Condents{
+class Contents{
   String name;
   String key;
   bool isSelected=false;
-  Condents(this.name);
-  Condents.fromSnapshot(DocumentSnapshot snapshot)
+  Contents(this.name);
+  Contents.fromSnapshot(DocumentSnapshot snapshot)
       :name=snapshot.data['name'],
        key=snapshot.documentID;
 }
@@ -24,11 +24,11 @@ class Item {
 
 
 class Dbref{
-  CollectionReference getprofile(String cls,String yer,String dep){
+  CollectionReference getProfile(String cls,String yer,String dep){
     return(Firestore.instance.collection('collage/student/$dep/$yer/$cls'));
   }
 
-  CollectionReference placeattendance(String cls,String yer,String dep){
+  CollectionReference placeAttendance(String cls,String yer,String dep){
     var datetime = new DateTime.now().toString();
     var dateParse = DateTime.parse(datetime);
     var date = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
@@ -36,11 +36,11 @@ class Dbref{
     return(Firestore.instance.collection('$dep/$yer/$cls/$date/$hour'));
   }
 
-  CollectionReference getdetailref(String val){
+  CollectionReference getDetailRef(String val){
     return(Firestore.instance.collection('$val'));
   }
 
-  CollectionReference getdetailref2(String year,String department){
+  CollectionReference getDetailRef2(String year,String department){
     return(Firestore.instance.collection('class/$department/$year'));
   }
 

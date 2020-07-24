@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'attendance.dart';
-import 'addstd.dart';
-import 'dbref.dart';
-import 'addclass.dart';
-import 'deleteclass.dart';
+import 'Operations.dart';
+import 'AddStd.dart';
+import 'DbAndRefs.dart';
+import 'AddDetails.dart';
 
 // ignore: must_be_immutable
 class Details extends StatefulWidget {
@@ -16,8 +15,8 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
 
-  List<Condents> year = List();
-  List<Condents> department = List();
+  List<Contents> year = List();
+  List<Contents> department = List();
   String yer, dep, cls;
   Dbref obj = new Dbref();
 
@@ -26,19 +25,19 @@ class _DetailsState extends State<Details> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    CollectionReference yearref = obj.getdetailref('year');
-    CollectionReference depref = obj.getdetailref('department');
-    yearref.snapshots().listen((event) {
+    CollectionReference yearRef = obj.getDetailRef('year');
+    CollectionReference depRef = obj.getDetailRef('department');
+    yearRef.snapshots().listen((event) {
       setState(() {
         for (int i = 0; i < event.documents.length; i++) {
-          year.add(Condents.fromSnapshot(event.documents[i]));
+          year.add(Contents.fromSnapshot(event.documents[i]));
         }
       });
     });
-    depref.snapshots().listen((event) {
+    depRef.snapshots().listen((event) {
       setState(() {
         for (int i = 0; i < event.documents.length; i++) {
-          department.add(Condents.fromSnapshot(event.documents[i]));
+          department.add(Contents.fromSnapshot(event.documents[i]));
         }
       });
     });
@@ -94,27 +93,27 @@ class _DetailsState extends State<Details> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Attendance(yer, dep, false)));
+                        builder: (context) => Attendance(yer, dep, widget.text)));
               } else if (widget.text=='Add student') {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Addstudent(yer, dep)));
+                        builder: (context) => AddStudent(yer, dep)));
               } else if (widget.text=='Add class') {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Addclass(yer, dep)));
+                        builder: (context) => AddClass(yer, dep)));
               } else if (widget.text=='Delete students') {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Attendance(yer, dep, true)));
+                        builder: (context) => Attendance(yer, dep, widget.text)));
               } else if (widget.text=='Delete class') {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Deleteclass(yer, dep)));
+                        builder: (context) => Attendance(yer, dep, widget.text)));
               }
             },
           )

@@ -1,20 +1,19 @@
+import 'Operations.dart';
 import 'package:flutter/material.dart';
-import 'addclass.dart';
-import 'deleteclass.dart';
-import 'details.dart';
+import 'AddDetails.dart';
+import 'Details.dart';
 
-class Customview extends StatefulWidget {
+// ignore: must_be_immutable
+class CustomView extends StatefulWidget {
   String text;
-  Customview(this.text);
+  CustomView(this.text);
 
   @override
-  _CustomviewState createState() => _CustomviewState();
+  _CustomViewState createState() => _CustomViewState();
 }
 
-class _CustomviewState extends State<Customview> {
-
+class _CustomViewState extends State<CustomView> {
   bool k=false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,11 +44,11 @@ class _CustomviewState extends State<Customview> {
                 }
                 else if(widget.text=='Add year'){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Addclass('year',null)));
+                      AddClass('year',null)));
                 }
                 else if(widget.text=='Add dep'){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Addclass(null,'department')));
+                      AddClass(null,'department')));
                 }
                 else if(widget.text=='Delete students'){
                   setState(() {
@@ -63,11 +62,11 @@ class _CustomviewState extends State<Customview> {
                 }
                 else if(widget.text=='Delete department'){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Deleteclass(null,'department')));
+                      Attendance(null,null,widget.text)));
                 }
                 else if(widget.text=='Delete year'){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=>
-                      Deleteclass('year',null)));
+                      Attendance(null,null,widget.text)));
                 }
               },
               child: Container(

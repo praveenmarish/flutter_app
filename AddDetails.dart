@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dbref.dart';
+import 'DbAndRefs.dart';
 
 
 // ignore: must_be_immutable
-class Addclass extends StatefulWidget {
+class AddClass extends StatefulWidget {
   String yer,dep;
-  Addclass(this.yer,this.dep);
+  AddClass(this.yer,this.dep);
 
   @override
-  _AddclassState createState() => _AddclassState();
+  _AddClassState createState() => _AddClassState();
 }
 
-class _AddclassState extends State<Addclass> {
+class _AddClassState extends State<AddClass> {
 
-  List<Condents> classes=[];
+  List<Contents> classes=[];
   TextEditingController eCtrl = new TextEditingController();
   String name;
   Dbref obj=new Dbref();
@@ -23,52 +23,52 @@ class _AddclassState extends State<Addclass> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getclass();
+    getClass();
   }
 
-  void getclass(){
-    cleardata();
+  void getClass(){
+    clearData();
     var yer=widget.yer;
     var dep=widget.dep;
-    CollectionReference getref;
+    CollectionReference getRef;
     if(yer!=null&&dep!=null){
-     getref=obj.getdetailref2(yer, dep);
+     getRef=obj.getDetailRef2(yer, dep);
     }
     else if(yer==null&&dep!=null){
-      getref=obj.getdetailref(dep);
+      getRef=obj.getDetailRef(dep);
     }
     else if(dep==null&&yer!=null){
-      getref=obj.getdetailref(yer);
+      getRef=obj.getDetailRef(yer);
     }
-    getref.snapshots().listen((event) {
+    getRef.snapshots().listen((event) {
       setState(() {
         for (int i=0; i<event.documents.length;i++){
-          classes.add(Condents.fromSnapshot(event.documents[i]));
+          classes.add(Contents.fromSnapshot(event.documents[i]));
         }
       });
     });
   }
 
-  void cleardata(){
+  void clearData(){
     setState(() {
       classes.clear();
     });
   }
 
-  void addclassname(String name) {
+  void addClassname(String name) {
     String yer = widget.yer;
     String dep = widget.dep;
-    CollectionReference addref;
+    CollectionReference addRef;
     if(yer!=null&&dep!=null){
-      addref=obj.getdetailref2(yer, dep);
+      addRef=obj.getDetailRef2(yer, dep);
     }
     else if(yer==null&&dep!=null){
-      addref=obj.getdetailref(dep);
+      addRef=obj.getDetailRef(dep);
     }
     else if(dep==null&&yer!=null){
-      addref=obj.getdetailref(yer);
+      addRef=obj.getDetailRef(yer);
     }
-    addref.add(
+    addRef.add(
         {
           'name': name,
         }
@@ -87,9 +87,9 @@ class _AddclassState extends State<Addclass> {
             new TextField(
               controller: eCtrl,
               onSubmitted: (text) {
-                addclassname(text);
+                addClassname(text);
                 eCtrl.clear();
-                cleardata();
+                clearData();
                 setState(() {});
               },
             ),
@@ -106,7 +106,6 @@ class _AddclassState extends State<Addclass> {
                     )
                 )
             ),
-
           ],
         ),
       )

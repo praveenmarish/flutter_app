@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'designs.dart';
+import 'Designs.dart';
 
 void main() {
   runApp(MyApp());
@@ -38,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-
         ),
       drawer: Container(
         width: 210,
@@ -61,17 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-
-              Customview('Add class'),
-              Customview('Add student'),
-              Customview('Attendance'),
-              Customview('Add year'),
-              Customview('Add dep'),
-              Customview('Delete students'),
-              Customview('Delete class'),
-              Customview('Delete department'),
-              Customview('Delete year'),
-
+              CustomView('Add class'),
+              CustomView('Add student'),
+              CustomView('Attendance'),
+              CustomView('Add year'),
+              CustomView('Add dep'),
+              CustomView('Delete students'),
+              CustomView('Delete class'),
+              CustomView('Delete department'),
+              CustomView('Delete year'),
             ],
           ),
         ),

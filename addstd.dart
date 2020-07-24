@@ -1,42 +1,43 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'dbref.dart';
+import 'DbAndRefs.dart';
 
 // ignore: must_be_immutable
-class Addstudent extends StatefulWidget {
+class AddStudent extends StatefulWidget {
   String dep,yer;
-  Addstudent(this.yer,this.dep);
+  AddStudent(this.yer,this.dep);
 
   @override
-  _AddstudentState createState() => _AddstudentState();
+  _AddStudentState createState() => _AddStudentState();
 }
 
-class _AddstudentState extends State<Addstudent> {
+class _AddStudentState extends State<AddStudent> {
 
   TextEditingController eCtrl = new TextEditingController();
+  TextEditingController eCtrl1=new TextEditingController();
   String name,age,cls;
   Dbref obj=new Dbref();
-  List<Condents> classes=List();
+  List<Contents> classes=List();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    CollectionReference clsref=obj.getdetailref2(widget.yer,widget.dep);
-    clsref.snapshots().listen((event) {
+    CollectionReference clsRef=obj.getDetailRef2(widget.yer,widget.dep);
+    clsRef.snapshots().listen((event) {
       setState(() {
         for (int i=0; i<event.documents.length;i++){
-          classes.add(Condents.fromSnapshot(event.documents[i]));
+          classes.add(Contents.fromSnapshot(event.documents[i]));
         }
       });
     });
   }
 
-  void save(String name, String age, String classname) {
-    CollectionReference ref=obj.getprofile(classname, widget.yer, widget.dep);
+  void save() {
+    CollectionReference ref=obj.getProfile(cls, widget.yer, widget.dep);
     ref.add({
-      'name':name,
-      'age':age
+      'name':eCtrl.value.text,
+      'age':eCtrl1.value.text.toString()
     });
   }
 
@@ -65,7 +66,7 @@ class _AddstudentState extends State<Addstudent> {
 
               new Text('age:'),
               new TextField(
-                controller: eCtrl,
+                controller: eCtrl1,
                 onSubmitted: (value){
                   setState(() {
                     age=value;
@@ -90,9 +91,10 @@ class _AddstudentState extends State<Addstudent> {
               new FlatButton(
                 child: Text('enter'),
                 onPressed: (){
-                  if(name!=null&&age!=null&&cls!=null){
-                    save(name,age,cls);
+                  if(eCtrl.value.text!=null&&eCtrl1.value.text!=null&&cls!=null){
+                    save();
                     eCtrl.clear();
+                    eCtrl1.clear();
                   }
                 },
               ),
