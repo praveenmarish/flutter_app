@@ -6,7 +6,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,15 +29,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
+      body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                CustomView('Add class'),
+                CustomView('Add student'),
+                CustomView('Attendance'),
+                CustomView('Add year'),
+                CustomView('Add dep'),
+                CustomView('Delete students'),
+                CustomView('Delete class'),
+                CustomView('Delete department'),
+                CustomView('Delete year'),
+          ],
         ),
+      )),
       drawer: Container(
         width: 210,
         child: Drawer(
@@ -46,17 +58,19 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: <Color>[
-                    Colors.lightBlue,
-                    Colors.lightBlueAccent
-                  ])
-                ),
+                    gradient: LinearGradient(colors: <Color>[
+                  Colors.lightBlue,
+                  Colors.lightBlueAccent
+                ])),
                 child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: <Widget>[
-                       Text('Header',style: TextStyle(fontSize: 20),),
-                     ],
+                    children: <Widget>[
+                      Text(
+                        'Header',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
                   ),
                 ),
               ),
